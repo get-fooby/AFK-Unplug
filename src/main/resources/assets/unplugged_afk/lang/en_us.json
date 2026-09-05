@@ -31,7 +31,7 @@
   "command.unplugged_afk.status.next": "Next-logout unplug is armed for %s minute(s).",
   "command.unplugged_afk.status.auto": "Automatic unplug is enabled for %s minute(s).",
   "command.unplugged_afk.status.off": "Automatic unplug is disabled.",
-  "command.unplugged_afk.admin.info": "Unplugged AFK NeoForge: %s active, %s tracked session(s)",
+  "command.unplugged_afk.admin.info": "Unplugged AFK Forge: %s active, %s tracked session(s)",
   "command.unplugged_afk.admin.player_info": "%s: %s",
   "command.unplugged_afk.admin.player_details": "%s, %ss remaining, %s, reason: %s",
   "command.unplugged_afk.admin.not_tracked": "not tracked",

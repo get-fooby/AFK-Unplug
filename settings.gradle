@@ -1,12 +1,9 @@
 pluginManagement {
     repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
         gradlePluginPortal()
     }
 }
 
-plugins {
-    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
-}
-
-rootProject.name = 'unplugged-afk-neoforge'
-
+rootProject.name = 'unplugged-afk-forge'

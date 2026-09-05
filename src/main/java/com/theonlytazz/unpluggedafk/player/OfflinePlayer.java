@@ -5,7 +5,6 @@ import com.theonlytazz.unpluggedafk.config.ConfigManager;
 import com.theonlytazz.unpluggedafk.Translations;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ClientInformation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -13,8 +12,8 @@ import net.minecraft.world.damagesource.DamageSource;
 public final class OfflinePlayer extends ServerPlayer {
     private boolean active = true;
 
-    OfflinePlayer(MinecraftServer server, ServerLevel level, GameProfile profile, ClientInformation information) {
-        super(server, level, profile, information);
+    OfflinePlayer(MinecraftServer server, ServerLevel level, GameProfile profile) {
+        super(server, level, profile);
     }
 
     public boolean isOfflineReplacement() {

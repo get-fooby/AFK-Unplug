@@ -2,6 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.theonlytazz.unpluggedafk.mixin",
+  "refmap": "unplugged_afk.refmap.json",
   "mixins": [
     "EntityAuthorityMixin",
     "PistonMovingBlockEntityMixin",

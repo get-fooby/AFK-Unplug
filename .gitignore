@@ -16,3 +16,4 @@ bin/
 logs/
 *.log
 .env
+.DS_Store

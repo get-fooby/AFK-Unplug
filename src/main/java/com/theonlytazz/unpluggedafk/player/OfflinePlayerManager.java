@@ -18,8 +18,6 @@ import net.minecraft.network.protocol.game.ClientboundSetPlayerTeamPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ClientInformation;
-import net.minecraft.server.network.CommonListenerCookie;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.storage.LevelResource;
 import net.minecraft.world.scores.PlayerTeam;
@@ -108,7 +106,6 @@ public final class OfflinePlayerManager {
         server.getPlayerList().save(original);
         GameProfile profile = original.getGameProfile();
         var level = original.serverLevel();
-        var info = original.clientInformation();
         double x = original.getX(), y = original.getY(), z = original.getZ();
         float yaw = original.getYRot(), pitch = original.getXRot();
         var gameMode = original.gameMode.getGameModeForPlayer();
@@ -119,9 +116,8 @@ public final class OfflinePlayerManager {
         original.connection.disconnect(Translations.component("disconnect.unplugged_afk.unplugged"));
 
         FakeConnection connection = new FakeConnection();
-        OfflinePlayer replacement = new OfflinePlayer(server, level, profile, info);
-        CommonListenerCookie cookie = new CommonListenerCookie(profile, 0, info, true);
-        placeReplacement(server, connection, replacement, cookie);
+        OfflinePlayer replacement = new OfflinePlayer(server, level, profile);
+        placeReplacement(server, connection, replacement);
         replacement.connection.teleport(x, y, z, yaw, pitch);
         replacement.gameMode.changeGameModeForPlayer(gameMode);
 
@@ -209,13 +205,11 @@ public final class OfflinePlayerManager {
         if (server.getPlayerList().getPlayer(session.uuid()) != null) return;
         GameProfile profile = server.getProfileCache().get(session.uuid())
                 .orElseGet(() -> new GameProfile(session.uuid(), session.name()));
-        var information = net.minecraft.server.level.ClientInformation.createDefault();
         FakeConnection connection = new FakeConnection();
-        OfflinePlayer replacement = new OfflinePlayer(server, server.overworld(), profile, information);
+        OfflinePlayer replacement = new OfflinePlayer(server, server.overworld(), profile);
         BlockPos spawn = server.overworld().getSharedSpawnPos();
         replacement.moveTo(spawn.getX() + 0.5D, spawn.getY(), spawn.getZ() + 0.5D, 0.0F, 0.0F);
-        CommonListenerCookie cookie = new CommonListenerCookie(profile, 0, information, true);
-        placeReplacement(server, connection, replacement, cookie);
+        placeReplacement(server, connection, replacement);
         if (replacement.blockPosition().equals(BlockPos.ZERO)) {
             replacement.moveTo(spawn.getX() + 0.5D, spawn.getY(), spawn.getZ() + 0.5D,
                     replacement.getYRot(), replacement.getXRot());
@@ -276,7 +270,7 @@ public final class OfflinePlayerManager {
         minutes = Math.min(minutes, AccessController.maximumDuration(player));
         player.level().getServer().getPlayerList().save(player);
         pendingAutomatic.put(uuid, new PendingAutomatic(player.getGameProfile(), player.serverLevel(),
-                player.clientInformation(), player.getX(), player.getY(), player.getZ(),
+                player.getX(), player.getY(), player.getZ(),
                 player.getYRot(), player.getXRot(), player.gameMode.getGameModeForPlayer(), minutes,
                 automatic.delaySeconds * 20, AccessController.bypassesSessionLimit(player)));
     }
@@ -330,11 +324,11 @@ public final class OfflinePlayerManager {
     }
 
     private void placeReplacement(MinecraftServer server, FakeConnection connection,
-                                  OfflinePlayer replacement, CommonListenerCookie cookie) {
+                                  OfflinePlayer replacement) {
         String name = replacement.getGameProfile().getName().toLowerCase(Locale.ROOT);
         if (ConfigManager.get().messages.hideUnpluggedJoin) suppressedJoinNames.add(name);
         try {
-            server.getPlayerList().placeNewPlayer(connection, replacement, cookie);
+            server.getPlayerList().placeNewPlayer(connection, replacement);
         } finally {
             suppressedJoinNames.remove(name);
         }
@@ -439,9 +433,8 @@ public final class OfflinePlayerManager {
         if (players.containsKey(uuid) || server.getPlayerList().getPlayer(uuid) != null) return;
 
         FakeConnection connection = new FakeConnection();
-        OfflinePlayer replacement = new OfflinePlayer(server, pending.level(), pending.profile(), pending.information());
-        CommonListenerCookie cookie = new CommonListenerCookie(pending.profile(), 0, pending.information(), true);
-        placeReplacement(server, connection, replacement, cookie);
+        OfflinePlayer replacement = new OfflinePlayer(server, pending.level(), pending.profile());
+        placeReplacement(server, connection, replacement);
         replacement.connection.teleport(pending.x(), pending.y(), pending.z(), pending.yaw(), pending.pitch());
         replacement.gameMode.changeGameModeForPlayer(pending.gameMode());
 
@@ -458,11 +451,11 @@ public final class OfflinePlayerManager {
                 pending.profile().getName(), pending.minutes(), pending.x(), pending.y(), pending.z());
     }
 
-    private record PendingAutomatic(GameProfile profile, ServerLevel level, ClientInformation information,
+    private record PendingAutomatic(GameProfile profile, ServerLevel level,
                                     double x, double y, double z, float yaw, float pitch, GameType gameMode,
                                     long minutes, int ticksRemaining, boolean bypassSessionLimit) {
         PendingAutomatic tick() {
-            return new PendingAutomatic(profile, level, information, x, y, z, yaw, pitch, gameMode,
+            return new PendingAutomatic(profile, level, x, y, z, yaw, pitch, gameMode,
                     minutes, ticksRemaining - 1, bypassSessionLimit);
         }
     }

@@ -1,13 +1,13 @@
-# Unplugged AFK for NeoForge
+# Unplugged AFK for Forge
 
-The idea for this mod originated from [Unplugged-AFK by Sakura-Ryoko](https://github.com/sakura-ryoko/unplugged-afk). This project is an independent **NeoForge implementation** of that concept.
+The idea for this mod originated from [Unplugged-AFK by Sakura-Ryoko](https://github.com/sakura-ryoko/unplugged-afk). This project is an independent **Forge implementation** of that concept.
 
 Unplugged AFK lets you leave a server without leaving your computer running beside an idle Minecraft window. Use `/unplug` and a server-side stand-in remains at your current location, allowing nearby farms and other player-dependent systems to continue working while your real client is disconnected.
 
 ## Features
 
 - **Go unplugged:** Disconnect safely while your server-side stand-in stays at the farm.
-- **No client mod required:** Install the mod on the NeoForge server; connecting players do not need it.
+- **No client mod required:** Install the mod on the Forge server; connecting players do not need it.
 - **Flexible sessions:** Choose a duration and an optional reason, or use the server's configured default timeout.
 - **Seamless return:** Reconnecting replaces the stand-in with the real player and restores normal play.
 - **Restart recovery:** Active unplugged sessions are persisted and restored after a server restart.
@@ -30,14 +30,15 @@ Configuration is generated at `config/unplugged_afk.json`. It includes session t
 
 ## Requirements
 
-- NeoForge
+- Forge 47.4.0 or another compatible 47.x build
+- Minecraft 1.20.1
 - A dedicated or multiplayer server
-- The Java version required by the selected Minecraft/NeoForge release
+- Java 17
 
-Use the file made for your exact Minecraft version. Builds for different Minecraft releases are not interchangeable.
+Use the Forge file made for Minecraft 1.20.1. Builds for other Minecraft releases are not interchangeable.
 
 ## Attribution
 
-This NeoForge implementation is based on the idea and behavior of Sakura-Ryoko's original Fabric mod. It is independently maintained and is not endorsed by Sakura-Ryoko or NeoForged.
+This Forge implementation is based on the idea and behavior of Sakura-Ryoko's original Fabric mod. It is independently maintained and is not endorsed by Sakura-Ryoko or Forge.
 
 Licensed under LGPL-3.0.
