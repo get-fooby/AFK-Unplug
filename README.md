@@ -115,14 +115,6 @@ configurations with:
 - Visibility mode removes hidden replacements from both entity tracking and
   the player-info list, with a separate operator exception.
 
-## CurseForge listing
-
-The ready-to-paste CurseForge project page copy is in
-[`metadata/curseforge-description.md`](metadata/curseforge-description.md).
-
-Upload the Forge JAR from `build/libs` and select Minecraft 1.20.1 and Forge.
-
-
 ## License and attribution
 
 This project and the upstream-derived work are licensed under LGPL-3.0. See
