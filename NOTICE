@@ -1,7 +1,14 @@
-This project is a NeoForge port derived from Unplugged-AFK by Sakura-Ryoko and
-contributors: https://github.com/sakura-ryoko/unplugged-afk
+Unplugged AFK for Forge
 
-The upstream work is licensed under GNU LGPL v3.0. Modifications and new work
-in this repository are distributed under the same license. This port is not
-affiliated with or endorsed by NeoForged or the original author.
+This project is a Forge 1.20.1 port of the Unplugged AFK NeoForge implementation by TheonlyTazz and contributors:
+https://github.com/TheonlyTazz/AFK-Unplug
 
+That implementation is derived from the original Unplugged-AFK project by Sakura-Ryoko and contributors:
+https://github.com/sakura-ryoko/unplugged-afk
+
+Forge-specific modifications are maintained by get-fooby:
+https://github.com/get-fooby/AFK-Unplug
+
+The original work, the NeoForge implementation, and this Forge port are distributed under the GNU Lesser General Public License version 3.0. See the included license files for the applicable terms.
+
+This Forge port is independent and is not affiliated with or endorsed by Sakura-Ryoko, TheonlyTazz, Forge, or NeoForged.
